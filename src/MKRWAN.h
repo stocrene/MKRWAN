@@ -469,6 +469,15 @@ public:
     return true;
   }
 
+  String getClass() {
+    String devaddr = "";
+    sendAT(GF("+CLASS?"));
+    if (waitResponse("+OK=") == 1) {
+        devaddr = stream.readStringUntil('\r');
+    }
+    return devaddr;
+  }
+
   bool configureBand(_lora_band band) {
     sendAT(GF("+BAND="), band);
     if (waitResponse() != 1) {
